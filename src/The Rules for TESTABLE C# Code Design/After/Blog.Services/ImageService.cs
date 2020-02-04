@@ -22,7 +22,7 @@
 
             using var image = Image.Load(destination);
 
-            (int optimalWidth, int optimalHeight) = CalculateOptimalSize(
+            (int optimalWidth, int optimalHeight) = this.CalculateOptimalSize(
                 width, 
                 height, 
                 image.Width, 
@@ -35,7 +35,8 @@
             image.SaveAsJpeg(output);
         }
 
-        private static (int width, int height) CalculateOptimalSize(
+        // Internal for testing purposes.
+        internal (int width, int height) CalculateOptimalSize(
             int? width,
             int? height,
             int originalWidth,

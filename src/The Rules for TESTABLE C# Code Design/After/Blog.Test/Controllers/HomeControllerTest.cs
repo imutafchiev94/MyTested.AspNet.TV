@@ -2,15 +2,13 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     using Blog.Controllers;
     using Blog.Controllers.Models;
+    using Blog.Services.Models;
     using Extensions;
     using Fakes;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Models;
     using Xunit;
 
     public class HomeControllerTest

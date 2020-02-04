@@ -3,8 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Blog.Services;
+    using Blog.Services.Models;
     using Services;
-    using Services.Models;
 
     public class FakeArticleService : IArticleService
     {

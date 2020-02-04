@@ -1,12 +1,9 @@
 ﻿namespace Blog.Test.Controllers
 {
-    using System.Collections.Generic;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     using Blog.Controllers;
     using Extensions;
     using Fakes;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Xunit;
 
@@ -36,7 +33,7 @@
 
             var usersController = new UsersController(imageService)
                 .WithTestUser();
-
+            
             // Act
             var result = await usersController.ChangeProfilePicture(pictureUrl);
 

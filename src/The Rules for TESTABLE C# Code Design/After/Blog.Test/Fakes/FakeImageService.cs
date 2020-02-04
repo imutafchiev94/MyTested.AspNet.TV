@@ -1,7 +1,7 @@
 ﻿namespace Blog.Test.Fakes
 {
     using System.Threading.Tasks;
-    using Services;
+    using Blog.Services;
 
     public class FakeImageService : IImageService
     {
