@@ -1,5 +1,7 @@
 ﻿namespace Blog.Test.Controllers
 {
+    using System.IO;
+    using System.Text;
     using System.Threading.Tasks;
     using Blog.Controllers;
     using Extensions;
@@ -7,13 +9,15 @@
     using Microsoft.AspNetCore.Mvc;
     using Xunit;
 
+    using static Blog.Controllers.ControllerConstants;
+
     public class UsersControllerTest
     {
         [Fact]
         public async Task ChangeProfilePictureWithNullPictureUrlShouldReturnBadRequest()
         {
             // Arrange
-            var usersController = new UsersController(null);
+            var usersController = new UsersController(null, null);
 
             // Act
             var result = await usersController.ChangeProfilePicture(null);
@@ -31,7 +35,7 @@
 
             var imageService = new FakeImageService();
 
-            var usersController = new UsersController(imageService)
+            var usersController = new UsersController(imageService, null)
                 .WithTestUser();
             
             // Act
@@ -41,6 +45,29 @@
             Assert.Equal(pictureUrl, imageService.ImageUrl);
             Assert.Equal(@$"Images\Users\{TestConstants.TestUsername}", imageService.Destination);
             Assert.IsType<OkResult>(result);
+        }
+
+        [Fact]
+        public async Task GetProfilePictureShouldReturnCorrectFileStreamResult()
+        {
+            // Arrange
+            var usersController = new UsersController(null, new FakeFileSystemService())
+                .WithTestUser();
+
+            // Act
+            var result = await usersController.GetProfilePicture();
+
+            // Assert
+            var fileStreamResult = Assert.IsType<FileStreamResult>(result);
+            var memoryStream = Assert.IsType<MemoryStream>(fileStreamResult.FileStream);
+
+            var memoryStreamData = Encoding.UTF8.GetString(memoryStream.ToArray());
+            var expectedProfilePicturePath = string.Format(
+                $"{UserImageDestination}_optimized.jpg",
+                TestConstants.TestUsername);
+
+            Assert.Equal(expectedProfilePicturePath, memoryStreamData);
+            Assert.Equal(ImageContentType, fileStreamResult.ContentType);
         }
     }
 }

@@ -5,17 +5,20 @@
     using Microsoft.AspNetCore.Mvc;
     using Services;
 
-    using FileSystem = System.IO.File;
+    using static ControllerConstants;
 
     public class UsersController : Controller
     {
-        private const string UserImageDestination = @"Images\Users\{0}";
-        private const string ImageContentType = "image/jpeg";
-
         private readonly IImageService imageService;
+        private readonly IFileSystemService fileSystemService;
 
-        public UsersController(IImageService imageService)
-            => this.imageService = imageService;
+        public UsersController(
+            IImageService imageService,
+            IFileSystemService fileSystemService)
+        {
+            this.imageService = imageService;
+            this.fileSystemService = fileSystemService;
+        }
 
         [Authorize]
         [HttpGet]
@@ -25,7 +28,8 @@
                 $"{UserImageDestination}_optimized.jpg", 
                 this.User.Identity.Name);
 
-            await using var file = FileSystem.OpenRead(userImageDestination);
+            await using var file = this.fileSystemService
+                .OpenRead(userImageDestination);
 
             return this.File(file, ImageContentType);
         }
