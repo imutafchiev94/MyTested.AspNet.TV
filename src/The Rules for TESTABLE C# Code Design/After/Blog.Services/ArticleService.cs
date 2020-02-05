@@ -15,8 +15,8 @@
     {
         private readonly BlogDbContext db;
 
-        public ArticleService() 
-            => this.db = new BlogDbContext();
+        public ArticleService(BlogDbContext database) 
+            => this.db = database;
 
         public async Task<IEnumerable<ArticleListingServiceModel>> All(
             int page = 1,
