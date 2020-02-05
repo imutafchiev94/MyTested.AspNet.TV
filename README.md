@@ -60,9 +60,12 @@
 ## Lessons
 
 - **The Rules For TESTABLE C# Code Design** - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/The%20Rules%20for%20TESTABLE%20C%23%20Code%20Design)
-  - **Part 1 - Explanation** - [Video](https://youtu.be/cHe4tCDdKAA)
-  - **Part 2 - Implementing Error Reports** - [Video](https://youtu.be/i18useI_kCI)
-  - **Part 3 - Bug Hunting** - [Video](https://youtu.be/itic4-bcFmI)
+  - **Part 1 - Framework** - [Video](https://youtu.be/cHe4tCDdKAA)
+  - **Part 2 - The New Keyword** - [Video](https://youtu.be/i18useI_kCI)
+  - **Part 3 - Static Methods** - [Video](https://youtu.be/itic4-bcFmI)
+  - **Part 4 - Private Methods** - [Video](https://youtu.be/l8UEwivJHhw)
+  - **Part 5 - Database** - [Video](https://youtu.be/kbu0DvTh5Ic)
+  - **Part 6 - File System** - [Video](https://youtu.be/flGoF89azzs)
 - **10 Visual Studio Tips & Tricks You Probably DON'T KNOW** - [Video](https://youtu.be/Qzps0VNl-Ps)
 - **Embracing NON-NULLABLE Reference Types in C# 8.0** - [Video](https://www.youtube.com/watch?v=mk3wFUHNj74) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Embracing%20NON-NULLABLE%20Reference%20Types%20in%20C%23%208.0)
 - **LIVE CODING - Deep Equality Algorithm in My Tested ASP.NET** - [Source Code](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/src/MyTested.AspNetCore.Mvc.Abstractions/Utilities/Reflection.cs#L464)
