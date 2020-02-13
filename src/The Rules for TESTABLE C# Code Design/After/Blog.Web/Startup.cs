@@ -52,9 +52,10 @@
                     options.Password.RequireUppercase = false;
                 });
 
-            services.AddAutoMapper(
-                typeof(IArticleService).Assembly,
-                typeof(HomeController).Assembly);
+            services
+                .AddAutoMapper(
+                    typeof(IArticleService).Assembly,
+                    typeof(HomeController).Assembly);
 
             services
                 .AddTransient<IArticleService, ArticleService>()

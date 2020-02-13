@@ -1,7 +1,10 @@
 ﻿namespace Blog.Test.Services
 {
+    using System.Linq;
     using System.Threading.Tasks;
+    using AutoMapper;
     using Blog.Services;
+    using Blog.Services.Infrastructure;
     using Data.Models;
     using Fakes;
     using Xunit;
@@ -34,13 +37,33 @@
             Assert.False(exists);
         }
 
+        [Fact]
+        public async Task AllShouldReturnCorrectArticlesWithDefaultParameters()
+        {
+            // Arrange
+            var articleService = await this.GetArticleService("AllArticlesWithDefaultParameters");
+
+            // Act
+            var articles = await articleService.All();
+
+            // Assert
+            var article = Assert.Single(articles);
+            Assert.NotNull(article);
+            Assert.Equal(2, article.Id);
+        }
+
         private async Task<ArticleService> GetArticleService(string databaseName)
         {
             var db = new FakeBlogDbContext(databaseName);
 
             await this.AddFakeArticles(db);
 
-            return new ArticleService(db.Data);
+            var mapper = new Mapper(new MapperConfiguration(config =>
+            {
+                config.AddProfile<ServiceMappingProfile>();
+            }));
+
+            return new ArticleService(db.Data, mapper);
         }
 
         private async Task AddFakeArticles(FakeBlogDbContext fakeDb)
@@ -52,7 +75,8 @@
             new Article
             {
                 Id = 2,
-                UserId = "2"
+                UserId = "2",
+                IsPublic = true
             });
     }
 }
