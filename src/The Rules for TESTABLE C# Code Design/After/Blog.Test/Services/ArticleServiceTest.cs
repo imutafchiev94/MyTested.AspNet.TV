@@ -1,15 +1,15 @@
 ﻿namespace Blog.Test.Services
 {
-    using System.Linq;
+    using System;
     using System.Threading.Tasks;
     using AutoMapper;
     using Blog.Services;
     using Blog.Services.Infrastructure;
-    using Data.Models;
+    using Common;
     using Fakes;
     using Xunit;
 
-    public class ArticleServiceTest
+    public class ArticleServiceTest : TestWithData
     {
         [Fact]
         public async Task IsByUserShouldReturnTrueWhenArticleByTheSpecificUserExists()
@@ -52,31 +52,34 @@
             Assert.Equal(2, article.Id);
         }
 
+        [Fact]
+        public async Task ChangeVisibilityShouldSetCorrectPublishedOnDate()
+        {
+            // Arrange
+            const int articleId = 1;
+            var articleService = await GetArticleService("ChangeVisibility");
+
+            // Act
+            await articleService.ChangeVisibility(articleId);
+
+            // Assert
+            var article = this.Database.Articles.Find(articleId);
+
+            Assert.NotNull(article);
+            Assert.True(article.IsPublic);
+            Assert.Equal(new DateTime(2020, 1, 1), article.PublishedOn);
+        }
+
         private async Task<ArticleService> GetArticleService(string databaseName)
         {
-            var db = new FakeBlogDbContext(databaseName);
-
-            await this.AddFakeArticles(db);
+            await this.InitializeDatabase(databaseName);
 
             var mapper = new Mapper(new MapperConfiguration(config =>
             {
                 config.AddProfile<ServiceMappingProfile>();
             }));
 
-            return new ArticleService(db.Data, mapper);
+            return new ArticleService(this.Database, mapper, new FakeDateTimeService());
         }
-
-        private async Task AddFakeArticles(FakeBlogDbContext fakeDb)
-            => await fakeDb.Add(new Article
-            {
-                Id = 1,
-                UserId = "1"
-            },
-            new Article
-            {
-                Id = 2,
-                UserId = "2",
-                IsPublic = true
-            });
     }
 }
