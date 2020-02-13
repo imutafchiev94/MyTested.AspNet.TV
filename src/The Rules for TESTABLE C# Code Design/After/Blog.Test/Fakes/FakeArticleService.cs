@@ -5,22 +5,28 @@
     using System.Threading.Tasks;
     using Blog.Services;
     using Blog.Services.Models;
-    using Services;
+    using Data.Models;
 
     public class FakeArticleService : IArticleService
     {
+        private readonly List<Article> articlesData = new List<Article>
+        {
+            new Article { Id = 1 },
+            new Article { Id = 2 },
+            new Article { Id = 3 },
+            new Article { Id = 4 }
+        };
+
         public async Task<IEnumerable<ArticleListingServiceModel>> All(
             int page = 1,
             int pageSize = ServicesConstants.ArticlesPerPage,
             bool publicOnly = true)
         {
-            var articles = new List<ArticleListingServiceModel>
-            {
-                new ArticleListingServiceModel {Id = 1},
-                new ArticleListingServiceModel {Id = 2},
-                new ArticleListingServiceModel {Id = 3},
-                new ArticleListingServiceModel {Id = 4}
-            };
+            var articles = this.articlesData
+                .Select(a => new ArticleListingServiceModel
+                {
+                    Id = a.Id
+                });
 
             return await Task.FromResult(articles.Take(pageSize));
         }
@@ -50,10 +56,7 @@
             throw new System.NotImplementedException();
         }
 
-        public Task<int> Total()
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<int> Total() => await Task.FromResult(this.articlesData.Count);
 
         public Task<int> Add(string title, string content, string userId)
         {

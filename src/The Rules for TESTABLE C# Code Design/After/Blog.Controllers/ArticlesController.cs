@@ -20,14 +20,11 @@
 
         public ArticlesController(
             IArticleService articleService,
-            IMapper mapper)
+            IMapper mapper,
+            IConfiguration configuration)
         {
             this.articleService = articleService;
             this.mapper = mapper;
-
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
 
             this.articlePageSize = configuration
                 .GetSection("Articles")
