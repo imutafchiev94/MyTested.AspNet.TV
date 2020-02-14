@@ -61,7 +61,8 @@
                 .AddTransient<IArticleService, ArticleService>()
                 .AddTransient<IImageService, ImageService>()
                 .AddTransient<IFileSystemService, FileSystemService>()
-                .AddTransient<IDateTimeService, DateTimeService>();
+                .AddTransient<IDateTimeService, DateTimeService>()
+                .AddSingleton<IRandomService, RandomService>();
 
             services
                 .AddControllersWithViews(options => options

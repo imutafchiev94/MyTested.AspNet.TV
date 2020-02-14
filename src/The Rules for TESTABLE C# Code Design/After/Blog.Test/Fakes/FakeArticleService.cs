@@ -11,7 +11,7 @@
     {
         private readonly List<Article> articlesData = new List<Article>
         {
-            new Article { Id = 1 },
+            new Article { Id = 1, IsPublic = true },
             new Article { Id = 2 },
             new Article { Id = 3 },
             new Article { Id = 4 }
@@ -36,10 +36,8 @@
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<int>> AllIds()
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<IEnumerable<int>> AllIds()
+            => await Task.FromResult(this.articlesData.Select(a => a.Id));
 
         public Task<IEnumerable<ArticleForUserListingServiceModel>> ByUser(string userId)
         {
@@ -51,10 +49,15 @@
             throw new System.NotImplementedException();
         }
 
-        public Task<ArticleDetailsServiceModel> Details(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<ArticleDetailsServiceModel> Details(int id)
+            => await Task.FromResult(this.articlesData
+                .Where(a => a.Id == id)
+                .Select(a => new ArticleDetailsServiceModel
+                {
+                    Id = a.Id,
+                    IsPublic =  a.IsPublic
+                })
+                .FirstOrDefault());
 
         public async Task<int> Total() => await Task.FromResult(this.articlesData.Count);
 
