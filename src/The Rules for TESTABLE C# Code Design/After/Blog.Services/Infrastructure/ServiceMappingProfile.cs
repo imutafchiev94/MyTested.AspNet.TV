@@ -1,7 +1,7 @@
 ﻿namespace Blog.Services.Infrastructure
 {
     using AutoMapper;
-    using Data.Models;
+    using Blog.Data.Models;
     using Models;
 
     public class ServiceMappingProfile : Profile

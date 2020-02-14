@@ -1,15 +1,15 @@
-﻿namespace Blog.Services
+﻿namespace Blog.Services.Data
 {
-    using System;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using Data;
-    using Data.Models;
-    using Microsoft.EntityFrameworkCore;
-    using Models;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using Blog.Data;
+    using Blog.Data.Models;
+    using Machine;
+    using Microsoft.EntityFrameworkCore;
+    using Models;
 
     public class ArticleService : IArticleService
     {

@@ -1,38 +1,42 @@
-﻿namespace Blog.Services
+﻿namespace Blog.Services.Images
 {
-    using System.IO;
-    using System.Net;
     using System.Threading.Tasks;
-    using SixLabors.ImageSharp;
-    using SixLabors.ImageSharp.Processing;
+    using Web;
 
     public class ImageService : IImageService
     {
+        private readonly IWebClientService webClientService;
+        private readonly IImageProcessorService imageProcessorService;
+
+        public ImageService(
+            IWebClientService webClientService,
+            IImageProcessorService imageProcessorService)
+        {
+            this.webClientService = webClientService;
+            this.imageProcessorService = imageProcessorService;
+        }
+
         public async Task UpdateImage(
             string imageUrl, 
             string destination, 
             int? width = null,
             int? height = null)
         {
-            var webClient = new WebClient();
+            var destinationPath = $"{destination}.jpg";
 
-            destination = $"{destination}.jpg";
+            await this.webClientService.DownloadFile(imageUrl, destinationPath);
 
-            await webClient.DownloadFileTaskAsync(imageUrl, destination);
+            var (imageWidth, imageHeight) = this.imageProcessorService.GetSizes(destinationPath);
 
-            using var image = Image.Load(destination);
+            var (optimalWidth, optimalHeight) = this.CalculateOptimalSize(
+                width,
+                height,
+                imageWidth,
+                imageHeight);
 
-            (int optimalWidth, int optimalHeight) = this.CalculateOptimalSize(
-                width, 
-                height, 
-                image.Width, 
-                image.Height);
+            var newDestination = $"{destination}_optimized.jpg";
 
-            image.Mutate(i => i.Resize(optimalWidth, optimalHeight));
-
-            await using var output = File.OpenWrite($"{destination}_optimized.jpg");
-
-            image.SaveAsJpeg(output);
+            await this.imageProcessorService.Resize(newDestination, optimalWidth, optimalHeight);
         }
 
         // Internal for testing purposes.

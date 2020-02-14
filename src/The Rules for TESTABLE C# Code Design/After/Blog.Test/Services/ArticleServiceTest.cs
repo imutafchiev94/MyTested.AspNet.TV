@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Blog.Services;
+    using Blog.Services.Data;
     using Blog.Services.Infrastructure;
     using Common;
     using Fakes;

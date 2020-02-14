@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Blog.Services;
+    using Blog.Services.Images;
 
     public class FakeImageService : IImageService
     {

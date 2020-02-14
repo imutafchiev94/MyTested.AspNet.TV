@@ -14,7 +14,10 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Services;
+    using Services.Data;
+    using Services.Images;
+    using Services.Machine;
+    using Services.Web;
 
     public class Startup
     {
@@ -62,7 +65,9 @@
                 .AddTransient<IImageService, ImageService>()
                 .AddTransient<IFileSystemService, FileSystemService>()
                 .AddTransient<IDateTimeService, DateTimeService>()
-                .AddSingleton<IRandomService, RandomService>();
+                .AddSingleton<IRandomService, RandomService>()
+                .AddTransient<IWebClientService, WebClientService>()
+                .AddTransient<IImageProcessorService, ImageProcessorService>();
 
             services
                 .AddControllersWithViews(options => options

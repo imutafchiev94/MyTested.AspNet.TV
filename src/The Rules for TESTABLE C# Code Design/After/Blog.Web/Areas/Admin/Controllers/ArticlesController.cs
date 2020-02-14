@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Services;
+    using Services.Data;
     using Services.Models;
 
     [Area(ControllerConstants.AdministratorArea)]

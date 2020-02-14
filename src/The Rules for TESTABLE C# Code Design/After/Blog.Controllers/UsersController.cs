@@ -4,7 +4,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Services;
-
+    using Services.Images;
+    using Services.Machine;
     using static ControllerConstants;
 
     public class UsersController : Controller

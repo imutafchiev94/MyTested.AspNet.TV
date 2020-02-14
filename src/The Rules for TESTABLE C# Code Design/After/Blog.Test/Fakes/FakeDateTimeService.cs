@@ -2,6 +2,7 @@
 {
     using System;
     using Blog.Services;
+    using Blog.Services.Machine;
 
     public class FakeDateTimeService : IDateTimeService
     {

@@ -1,4 +1,4 @@
-﻿namespace Blog.Services
+﻿namespace Blog.Services.Images
 {
     using System.Threading.Tasks;
 

@@ -10,6 +10,8 @@
     using Microsoft.Extensions.Configuration;
     using Models;
     using Services;
+    using Services.Data;
+    using Services.Machine;
 
     public class ArticlesController : Controller
     {

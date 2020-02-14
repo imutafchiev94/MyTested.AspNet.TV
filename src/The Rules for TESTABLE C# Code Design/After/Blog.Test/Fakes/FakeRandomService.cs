@@ -1,6 +1,7 @@
 ﻿namespace Blog.Test.Fakes
 {
     using Blog.Services;
+    using Blog.Services.Machine;
 
     public class FakeRandomService : IRandomService
     {

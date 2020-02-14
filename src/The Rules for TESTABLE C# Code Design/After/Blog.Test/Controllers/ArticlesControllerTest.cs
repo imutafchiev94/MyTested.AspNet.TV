@@ -6,6 +6,7 @@
     using Blog.Controllers;
     using Blog.Controllers.Models;
     using Blog.Services;
+    using Blog.Services.Data;
     using Blog.Services.Models;
     using Extensions;
     using Fakes;
