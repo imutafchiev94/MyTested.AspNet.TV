@@ -1,6 +1,6 @@
 ﻿namespace DependencyInjection
 {
-    public class AppSettings
+    public class AppSettings : IAppSettings
     {
         public string ConnectionString { get; } = "My Cool Cat";
     }
