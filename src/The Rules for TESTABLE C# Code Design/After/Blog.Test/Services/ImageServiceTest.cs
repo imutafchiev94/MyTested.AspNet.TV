@@ -42,9 +42,12 @@
             await imageService.UpdateImage(imageUrl, destination, size, size);
 
             // Assert
+            var imageDestination = $"{destination}.jpg";
+
             Assert.True(webClientService.FileDownloaded);
             Assert.Equal($"{destination}.jpg", webClientService.DownloadDestination);
             Assert.True(imageProcessorService.ImageResized);
+            Assert.Equal(imageDestination, imageProcessorService.ImageSource);
             Assert.Equal($"{destination}_optimized.jpg", imageProcessorService.ImageDestination);
         }
     }

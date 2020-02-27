@@ -36,7 +36,7 @@
 
             var newDestination = $"{destination}_optimized.jpg";
 
-            await this.imageProcessorService.Resize(newDestination, optimalWidth, optimalHeight);
+            await this.imageProcessorService.Resize(destinationPath, newDestination, optimalWidth, optimalHeight);
         }
 
         // Internal for testing purposes.

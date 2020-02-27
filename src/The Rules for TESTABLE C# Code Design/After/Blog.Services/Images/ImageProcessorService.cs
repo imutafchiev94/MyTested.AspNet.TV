@@ -19,9 +19,9 @@
             return (image.Width, image.Height);
         }
 
-        public async Task Resize(string destination, int width, int height)
+        public async Task Resize(string source, string destination, int width, int height)
         {
-            using var image = Image.Load(destination);
+            using var image = Image.Load(source);
 
             image.Mutate(i => i.Resize(width, height));
 
