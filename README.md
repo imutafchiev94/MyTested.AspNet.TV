@@ -60,6 +60,9 @@
 
 ## Lessons
 
+- **Process Manipulation With C#** - [Video](https://youtu.be/UWalouJkwKs) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Process%20Manipulation%20With%20C%23)
+- **The BEST Ways To Use C# Extension Methods (With Examples)** - [Video](https://youtu.be/HaXAQeTqpGc) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/The%20BEST%20Ways%20To%20Use%20C%23%20Extension%20Methods%20(With%20Examples))
+- **C# Dependency Injection Made SUPER SIMPLE (feat. Simple Injector)** - [Video](https://youtu.be/Q7mvc1D-UKU) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/C%23%20Dependency%20Injection%20Made%20SUPER%20Simple)
 - **The Rules For TESTABLE C# Code Design** - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/The%20Rules%20for%20TESTABLE%20C%23%20Code%20Design)
   - **Part 1 - Framework** - [Video](https://youtu.be/cHe4tCDdKAA)
   - **Part 2 - The New Keyword** - [Video](https://youtu.be/i18useI_kCI)
@@ -72,6 +75,7 @@
   - **Part 9 - Configuration** - [Video](https://youtu.be/wCnPdVsaob8)
   - **Part 10 - Random Generator** - [Video](https://youtu.be/V26d6ZvZ4_Q)
   - **Part 11 - Web Services** - [Video](https://youtu.be/_EvSkYw9bWQ)
+  - **Part 12 - Final Touch** - [Video](https://youtu.be/vTlw_W8nThs)
 - **10 Visual Studio Tips & Tricks You Probably DON'T KNOW** - [Video](https://youtu.be/Qzps0VNl-Ps)
 - **Embracing NON-NULLABLE Reference Types in C# 8.0** - [Video](https://www.youtube.com/watch?v=mk3wFUHNj74) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Embracing%20NON-NULLABLE%20Reference%20Types%20in%20C%23%208.0)
 - **LIVE CODING - Deep Equality Algorithm in My Tested ASP.NET** - [Source Code](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/src/MyTested.AspNetCore.Mvc.Abstractions/Utilities/Reflection.cs#L464)
