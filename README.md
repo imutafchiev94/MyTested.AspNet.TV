@@ -50,6 +50,7 @@
 
 ## Playlists
 
+- **Code Testing** - [Videos](https://www.youtube.com/watch?v=cHe4tCDdKAA&list=PLLGdqRi7N09YoomAKadOjLopq0sIr_PKT)
 - **Live Coding Sessions** - [Videos](https://www.youtube.com/watch?v=ztuR-Yh1S7Y&list=PLLGdqRi7N09afEVKS8Ysid5fMRYi6iB_d)
 - **Delegates and Events** - [Videos](https://www.youtube.com/watch?v=2_fcNVcCDZo&list=PLLGdqRi7N09ZpC4k8Aoz4dH4QYcdAyjwM)
 - **Reflection Tips & Tricks** - [Videos](https://www.youtube.com/watch?v=2Akdz4Ukdxc&list=PLLGdqRi7N09YCpyRvi_QLPAhOXDl7s84M)
@@ -66,6 +67,11 @@
   - **Part 4 - Private Methods** - [Video](https://youtu.be/l8UEwivJHhw)
   - **Part 5 - Database** - [Video](https://youtu.be/kbu0DvTh5Ic)
   - **Part 6 - File System** - [Video](https://youtu.be/flGoF89azzs)
+  - **Part 7 - Third-Party Libraries** - [Video](https://youtu.be/f9IXzLK74Xs)
+  - **Part 8 - System Resources** - [Video](https://youtu.be/zdzcjO8vsTU)
+  - **Part 9 - Configuration** - [Video](https://youtu.be/wCnPdVsaob8)
+  - **Part 10 - Random Generator** - [Video](https://youtu.be/V26d6ZvZ4_Q)
+  - **Part 11 - Web Services** - [Video](https://youtu.be/_EvSkYw9bWQ)
 - **10 Visual Studio Tips & Tricks You Probably DON'T KNOW** - [Video](https://youtu.be/Qzps0VNl-Ps)
 - **Embracing NON-NULLABLE Reference Types in C# 8.0** - [Video](https://www.youtube.com/watch?v=mk3wFUHNj74) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Embracing%20NON-NULLABLE%20Reference%20Types%20in%20C%23%208.0)
 - **LIVE CODING - Deep Equality Algorithm in My Tested ASP.NET** - [Source Code](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc/blob/development/src/MyTested.AspNetCore.Mvc.Abstractions/Utilities/Reflection.cs#L464)
