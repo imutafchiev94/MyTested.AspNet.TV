@@ -60,6 +60,8 @@
 
 ## Lessons
 
+- **Create Your Own Test Runner with C# Reflection** - [Video](https://youtu.be/I4_swDCKMjI) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Create%20Your%20Own%20Test%20Runner%20with%20C%23%20Reflection/MyTestRunner)
+- **Create Your Own Object Validator with C# Reflection** - [Video](https://youtu.be/wqOkkoOB_BI) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Create%20Your%20Own%20Object%20Validator%20with%20C%23%20Reflection)
 - **Process Manipulation With C#** - [Video](https://youtu.be/UWalouJkwKs) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Process%20Manipulation%20With%20C%23)
 - **The BEST Ways To Use C# Extension Methods (With Examples)** - [Video](https://youtu.be/HaXAQeTqpGc) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/The%20BEST%20Ways%20To%20Use%20C%23%20Extension%20Methods%20(With%20Examples))
 - **C# Dependency Injection Made SUPER SIMPLE (feat. Simple Injector)** - [Video](https://youtu.be/Q7mvc1D-UKU) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/C%23%20Dependency%20Injection%20Made%20SUPER%20Simple)
