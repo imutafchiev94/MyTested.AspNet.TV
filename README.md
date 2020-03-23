@@ -1,19 +1,14 @@
 <h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyTested.AspNetCore.Mvc/master/tools/logo.png" align="left" alt="My Tested ASP.NET" width="100">&nbsp; MyTested.AspNet.TV - <a href="https://www.youtube.com/channel/UCP5Ons7fK3yKhX6lhc9XcfQ" target="_blank">YouTube Channel</a> for<br />&nbsp; Advanced C# Lessons</h1> 
 
-## Special Sponsors
+## Diamond Sponsors
 
 <table>
   <tbody>
     <tr>
       <td align="center" valign="middle">
-          <a href="http://bit.ly/bellatrixsolutions" target="_blank">
-    <img width="323px" src="https://user-images.githubusercontent.com/3391906/68993273-d4f5c700-087e-11ea-9b39-e173733fcbfb.png" alt="The Ultimate Cross-Platform .NET Framework">
-          </a>
-      </td>
-      <td align="center" valign="middle">
-          <a href="https://www.jetbrains.com/?from=MyTestedASP.NET" target="_blank">
-    <img width="323px" src="https://user-images.githubusercontent.com/3391906/72542498-ee21f080-388c-11ea-92ac-0b0153028933.png" alt="JetBrains">
-          </a>
+        <a href="http://bit.ly/3da6h7f" target="_blank">
+          <img width="323px" src="https://user-images.githubusercontent.com/3391906/77253785-5b734880-6c65-11ea-92d5-71dcfc833fe0.png">
+        </a>
       </td>
     </tr>
   </tbody>
@@ -48,6 +43,25 @@
   </tbody>
 </table>
 
+## Special Sponsors
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+          <a href="http://bit.ly/bellatrixsolutions" target="_blank">
+    <img width="148px" src="https://user-images.githubusercontent.com/3391906/68993273-d4f5c700-087e-11ea-9b39-e173733fcbfb.png" alt="The Ultimate Cross-Platform .NET Framework">
+          </a>
+      </td>
+      <td align="center" valign="middle">
+          <a href="https://www.jetbrains.com/?from=MyTestedASP.NET" target="_blank">
+    <img width="148px" src="https://user-images.githubusercontent.com/3391906/72542498-ee21f080-388c-11ea-92ac-0b0153028933.png" alt="JetBrains">
+          </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## Playlists
 
 - **Code Testing** - [Videos](https://www.youtube.com/watch?v=cHe4tCDdKAA&list=PLLGdqRi7N09YoomAKadOjLopq0sIr_PKT)
@@ -60,6 +74,8 @@
 
 ## Lessons
 
+- **Create Your Own Test Runner with C# Reflection** - [Video](https://youtu.be/I4_swDCKMjI) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Create%20Your%20Own%20Test%20Runner%20with%20C%23%20Reflection/MyTestRunner)
+- **Create Your Own Object Validator with C# Reflection** - [Video](https://youtu.be/wqOkkoOB_BI) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Create%20Your%20Own%20Object%20Validator%20with%20C%23%20Reflection)
 - **Process Manipulation With C#** - [Video](https://youtu.be/UWalouJkwKs) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/Process%20Manipulation%20With%20C%23)
 - **The BEST Ways To Use C# Extension Methods (With Examples)** - [Video](https://youtu.be/HaXAQeTqpGc) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/The%20BEST%20Ways%20To%20Use%20C%23%20Extension%20Methods%20(With%20Examples))
 - **C# Dependency Injection Made SUPER SIMPLE (feat. Simple Injector)** - [Video](https://youtu.be/Q7mvc1D-UKU) - [Source Code](https://github.com/ivaylokenov/MyTested.AspNet.TV/tree/master/src/C%23%20Dependency%20Injection%20Made%20SUPER%20Simple)
