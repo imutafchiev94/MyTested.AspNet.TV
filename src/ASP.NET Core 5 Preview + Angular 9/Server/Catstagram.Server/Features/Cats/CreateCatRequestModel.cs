@@ -1,4 +1,4 @@
-﻿namespace Catstagram.Server.Models.Cats
+﻿namespace Catstagram.Server.Features.Cats
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -7,10 +7,9 @@
     public class CreateCatRequestModel
     {
         [Required]
+        public string ImageUrl { get; set; }
+
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
-
-        [Required]
-        public string ImageUrl { get; set; }
     }
 }
