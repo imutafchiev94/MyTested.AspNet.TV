@@ -6,6 +6,7 @@
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Models;
 
     public class CatService : ICatService
     {
@@ -29,15 +30,29 @@
             return cat.Id;
         }
 
-        public async Task<IEnumerable<CatListingResponseModel>> ByUser(string userId)
+        public async Task<IEnumerable<CatListingServiceModel>> ByUser(string userId)
             => await this.data
                 .Cats
                 .Where(c => c.UserId == userId)
-                .Select(c => new CatListingResponseModel
+                .Select(c => new CatListingServiceModel
                 {
                     Id = c.Id,
                     ImageUrl = c.ImageUrl
                 })
                 .ToListAsync();
+
+        public async Task<CatDetailsServiceModel> Details(int id)
+            => await this.data
+                .Cats
+                .Where(c => c.Id == id)
+                .Select(c => new CatDetailsServiceModel
+                {
+                    Id = c.Id,
+                    UserId = c.UserId,
+                    ImageUrl = c.ImageUrl,
+                    Description = c.Description,
+                    UserName = c.User.UserName
+                })
+                .FirstOrDefaultAsync();
     }
 }
