@@ -4,10 +4,9 @@
 
     using static Data.Validation.Cat;
 
-    public class CreateCatRequestModel
+    public class UpdateCatRequestModel
     {
-        [Required]
-        public string ImageUrl { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(MaxDescriptionLength)]
