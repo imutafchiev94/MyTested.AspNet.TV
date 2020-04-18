@@ -15,4 +15,20 @@ export class CatService {
   create(data): Observable<Cat> {
     return this.http.post<Cat>(this.catPath, data)
   }
+
+  getCats(): Observable<Array<Cat>> {
+    return this.http.get<Array<Cat>>(this.catPath)
+  }
+
+  getCat(id): Observable<Cat> {
+    return this.http.get<Cat>(this.catPath + '/' + id)
+  }
+
+  editCat(data) {
+    return this.http.put(this.catPath, data)
+  }
+
+  deleteCat(id) {
+    return this.http.delete(this.catPath + '/' + id)
+  }
 }
