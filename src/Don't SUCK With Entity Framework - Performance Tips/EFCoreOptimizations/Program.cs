@@ -28,21 +28,21 @@
             // Evaluating Slow Queries
             using (var db = new CatsDbContext())
             {
-                db.Cats
+                var result = db.Cats
                     .Where(c =>
                         c.BirthDate.Year == 2019 &&
                         c.Color.Contains("B") &&
-                        c.Owner.Cats.Any(c => c.Age < 3) &&
-                        c.Owner.Cats.Count(c => c.Name.Length > 3) > 3)
-                    .OrderBy(c => c.Owner.Cats.Average(c => c.BirthDate.Year))
+                        c.Owner.Cats.Any(cat => cat.Age < 3) &&
+                        c.Owner.Cats.Count(cat => cat.Name.Length > 3) > 3)
+                    .OrderBy(c => c.Owner.Cats.Average(cat => cat.BirthDate.Year))
                     .Select(c => new CatFamilyResult
                     {
                         Name = c.Name,
                         Cats = c.Owner
                             .Cats
-                            .Count(c =>
-                                c.Age < 3 &&
-                                c.Name.StartsWith("A"))
+                            .Count(cat =>
+                                cat.Age < 3 &&
+                                cat.Name.StartsWith("A"))
                     })
                     .ToList();
             }
