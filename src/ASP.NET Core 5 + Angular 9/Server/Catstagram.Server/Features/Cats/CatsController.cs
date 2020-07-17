@@ -3,13 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Infrastructure.Services;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
 
     using static Infrastructure.WebConstants;
 
-    [Authorize]
     public class CatsController : ApiController
     {
         private readonly ICatService cats;

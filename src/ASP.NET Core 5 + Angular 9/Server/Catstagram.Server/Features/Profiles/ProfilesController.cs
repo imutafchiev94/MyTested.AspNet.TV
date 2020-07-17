@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
     using Infrastructure.Services;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
 
@@ -20,12 +19,10 @@
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<ProfileServiceModel>> Mine()
             => await this.profiles.ByUser(this.currentUser.GetId());
 
         [HttpPut]
-        [Authorize]
         public async Task<ActionResult> Update(UpdateProfileRequestModel model)
         {
             var userId = this.currentUser.GetId();

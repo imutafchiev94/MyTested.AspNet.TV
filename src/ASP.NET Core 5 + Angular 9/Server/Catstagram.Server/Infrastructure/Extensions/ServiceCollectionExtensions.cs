@@ -4,8 +4,10 @@
     using Data;
     using Data.Models;
     using Features.Cats;
+    using Features.Follows;
     using Features.Identity;
     using Features.Profiles;
+    using Features.Search;
     using Filters;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
@@ -83,7 +85,9 @@
                 .AddScoped<ICurrentUserService, CurrentUserService>()
                 .AddTransient<IIdentityService, IdentityService>()
                 .AddTransient<IProfileService, ProfileService>()
-                .AddTransient<ICatService, CatService>();
+                .AddTransient<ICatService, CatService>()
+                .AddTransient<ISearchService, SearchService>()
+                .AddTransient<IFollowService, FollowService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
             => services.AddSwaggerGen(c =>
