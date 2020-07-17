@@ -34,13 +34,12 @@
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return Ok();
+                return BadRequest(result.Errors);
             }
 
-            return BadRequest(result.Errors);
+            return Ok();
         }
 
         [HttpPost]

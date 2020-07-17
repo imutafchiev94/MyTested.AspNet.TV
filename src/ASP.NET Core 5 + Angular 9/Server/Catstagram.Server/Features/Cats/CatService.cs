@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Data;
     using Data.Models;
+    using Infrastructure.Services;
     using Microsoft.EntityFrameworkCore;
     using Models;
 
@@ -30,13 +31,12 @@
             return cat.Id;
         }
 
-        public async Task<bool> Update(int id, string description, string userId)
+        public async Task<Result> Update(int id, string description, string userId)
         {
             var cat = await this.GetByIdAndByUserId(id, userId);
-
             if (cat == null)
             {
-                return false;
+                return "This user cannot edit this cat.";
             }
 
             cat.Description = description;
@@ -46,13 +46,12 @@
             return true;
         }
 
-        public async Task<bool> Delete(int id, string userId)
+        public async Task<Result> Delete(int id, string userId)
         {
             var cat = await this.GetByIdAndByUserId(id, userId);
-
             if (cat == null)
             {
-                return false;
+                return "This user cannot delete this cat.";
             }
 
             this.data.Cats.Remove(cat);

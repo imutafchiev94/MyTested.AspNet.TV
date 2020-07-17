@@ -24,12 +24,8 @@
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CatListingServiceModel>> Mine()
-        {
-            var userId = this.currentUser.GetId();
-
-            return await this.cats.ByUser(userId);
-        }
+        public async Task<IEnumerable<CatListingServiceModel>> Mine() 
+            => await this.cats.ByUser(this.currentUser.GetId());
 
         [HttpGet]
         [Route(Id)]
@@ -50,16 +46,17 @@
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update(UpdateCatRequestModel model)
+        [Route(Id)]
+        public async Task<ActionResult> Update(int id, UpdateCatRequestModel model)
         {
             var userId = this.currentUser.GetId();
 
-            var updated = await this.cats.Update(
-                model.Id,
+            var result = await this.cats.Update(
+                id,
                 model.Description,
                 userId);
 
-            if (!updated)
+            if (result.Failure)
             {
                 return BadRequest();
             }
@@ -73,9 +70,8 @@
         {
             var userId = this.currentUser.GetId();
 
-            var deleted = await this.cats.Delete(id, userId);
-
-            if (!deleted)
+            var result = await this.cats.Delete(id, userId);
+            if (result.Failure)
             {
                 return BadRequest();
             }

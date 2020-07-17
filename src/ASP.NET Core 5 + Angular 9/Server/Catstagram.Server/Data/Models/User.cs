@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using Base;
     using Microsoft.AspNetCore.Identity;
 
     public class User : IdentityUser, IEntity
     {
+        public Profile Profile { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string CreatedBy { get; set; }
