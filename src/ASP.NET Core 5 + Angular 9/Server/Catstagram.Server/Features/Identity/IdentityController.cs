@@ -5,21 +5,21 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
-    using Models.Identity;
+    using Models;
 
     public class IdentityController : ApiController
     {
         private readonly UserManager<User> userManager;
-        private readonly IIdentityService identityService;
+        private readonly IIdentityService identity;
         private readonly AppSettings appSettings;
 
         public IdentityController(
             UserManager<User> userManager,
-            IIdentityService identityService,
+            IIdentityService identity,
             IOptions<AppSettings> appSettings)
         {
             this.userManager = userManager;
-            this.identityService = identityService;
+            this.identity = identity;
             this.appSettings = appSettings.Value;
         }
 
@@ -59,7 +59,7 @@
                 return Unauthorized();
             }
 
-            var token = this.identityService.GenerateJwtToken(
+            var token = this.identity.GenerateJwtToken(
                 user.Id,
                 user.UserName,
                 this.appSettings.Secret);

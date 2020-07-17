@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Catstagram.Server.Data.Migrations
+﻿namespace Catstagram.Server.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class CatsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

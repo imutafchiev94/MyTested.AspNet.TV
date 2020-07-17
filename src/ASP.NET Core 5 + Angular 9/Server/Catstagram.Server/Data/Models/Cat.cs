@@ -1,10 +1,11 @@
 ﻿namespace Catstagram.Server.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using Base;
 
     using static Validation.Cat;
 
-    public class Cat
+    public class Cat : DeletableEntity
     {
         public int Id { get; set; }
 
