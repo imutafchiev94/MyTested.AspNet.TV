@@ -7,7 +7,7 @@
 
     public interface IProfileService
     {
-        Task<ProfileServiceModel> ByUser(string userId);
+        Task<ProfileServiceModel> ByUser(string userId, bool allInformation = false);
 
         Task<Result> Update(
             string userId, 
@@ -19,5 +19,7 @@
             string biography, 
             Gender gender, 
             bool isPrivate);
+
+        Task<bool> IsPublic(string userId);
     }
 }

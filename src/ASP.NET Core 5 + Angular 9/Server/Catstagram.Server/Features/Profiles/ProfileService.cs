@@ -14,19 +14,26 @@
 
         public ProfileService(CatstagramDbContext data) => this.data = data;
 
-        public async Task<ProfileServiceModel> ByUser(string userId)
+        public async Task<ProfileServiceModel> ByUser(string userId, bool allInformation = false)
             => await this.data
                 .Users
                 .Where(u => u.Id == userId)
-                .Select(u => new ProfileServiceModel
-                {
-                    Name = u.Profile.Name,
-                    MainPhotoUrl = u.Profile.MainPhotoUrl,
-                    WebSite = u.Profile.WebSite,
-                    Biography = u.Profile.Biography,
-                    Gender = u.Profile.Gender.ToString(),
-                    IsPrivate = u.Profile.IsPrivate
-                })
+                .Select(u => allInformation 
+                    ? new PublicProfileServiceModel
+                    {
+                        Name = u.Profile.Name,
+                        MainPhotoUrl = u.Profile.MainPhotoUrl,
+                        WebSite = u.Profile.WebSite,
+                        Biography = u.Profile.Biography,
+                        Gender = u.Profile.Gender.ToString(),
+                        IsPrivate = u.Profile.IsPrivate
+                    }
+                    : new ProfileServiceModel
+                    {
+                        Name = u.Profile.Name,
+                        MainPhotoUrl = u.Profile.MainPhotoUrl,
+                        IsPrivate = u.Profile.IsPrivate
+                    })
                 .FirstOrDefaultAsync();
 
         public async Task<Result> Update(
@@ -80,6 +87,13 @@
 
             return true;
         }
+
+        public async Task<bool> IsPublic(string userId)
+            => await this.data
+                .Profiles
+                .Where(p => p.UserId == userId)
+                .Select(p => !p.IsPrivate)
+                .FirstOrDefaultAsync();
 
         private async Task<Result> ChangeEmail(User user, string userId, string email)
         {

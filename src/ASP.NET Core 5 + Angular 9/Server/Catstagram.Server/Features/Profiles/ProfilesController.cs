@@ -1,26 +1,47 @@
 ﻿namespace Catstagram.Server.Features.Profiles
 {
     using System.Threading.Tasks;
+    using Follows;
     using Infrastructure.Services;
     using Microsoft.AspNetCore.Mvc;
     using Models;
 
+    using static Infrastructure.WebConstants;
+
     public class ProfilesController : ApiController
     {
         private readonly IProfileService profiles;
+        private readonly IFollowService follows;
         private readonly ICurrentUserService currentUser;
 
         public ProfilesController(
-            IProfileService profiles, 
+            IProfileService profiles,
+            IFollowService follows,
             ICurrentUserService currentUser)
         {
             this.profiles = profiles;
+            this.follows = follows;
             this.currentUser = currentUser;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ProfileServiceModel>> Mine()
-            => await this.profiles.ByUser(this.currentUser.GetId());
+        public async Task<ProfileServiceModel> Mine()
+            => await this.profiles.ByUser(this.currentUser.GetId(), allInformation: true);
+
+        [HttpGet]
+        [Route(Id)]
+        public async Task<ProfileServiceModel> Details(string id)
+        {
+            var includeAllInformation = await this.follows
+                .IsFollower(id, this.currentUser.GetId());
+
+            if (!includeAllInformation)
+            {
+                includeAllInformation = await this.profiles.IsPublic(id);
+            }
+
+            return await this.profiles.ByUser(id, includeAllInformation);
+        }
 
         [HttpPut]
         public async Task<ActionResult> Update(UpdateProfileRequestModel model)
