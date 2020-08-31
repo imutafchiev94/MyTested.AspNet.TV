@@ -1,5 +1,6 @@
 ﻿namespace Blog.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,6 +10,7 @@
     using Blog.Data.Models;
     using Machine;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Caching.Memory;
     using Models;
 
     public class ArticleService : IArticleService
@@ -16,15 +18,18 @@
         private readonly BlogDbContext db;
         private readonly IMapper mapper;
         private readonly IDateTimeService dateTimeService;
+        private readonly IMemoryCache cache;
 
         public ArticleService(
             BlogDbContext database,
             IMapper mapper,
-            IDateTimeService dateTimeService)
+            IDateTimeService dateTimeService,
+            IMemoryCache cache)
         {
             this.db = database;
             this.mapper = mapper;
             this.dateTimeService = dateTimeService;
+            this.cache = cache;
         }
 
         public async Task<IEnumerable<ArticleListingServiceModel>> All(
@@ -39,8 +44,13 @@
             bool publicOnly = true)
             where TModel : class
         {
-            var query = this.db.Articles.AsQueryable();
+            if (page == 1)
+            {
+                // then use cache
+            }
 
+            var query = this.db.Articles.AsQueryable();
+            
             if (publicOnly)
             {
                 query = query.Where(a => a.IsPublic);
@@ -55,11 +65,22 @@
         }
 
         public async Task<IEnumerable<int>> AllIds()
-            => await this.db
-                .Articles
-                .Where(a => a.IsPublic)
-                .Select(a => a.Id)
-                .ToListAsync();
+        {
+            var data = this.cache.Get<IEnumerable<int>>("MyKey");
+
+            if (data == null)
+            {
+                data = await this.db
+                    .Articles
+                    .Where(a => a.IsPublic)
+                    .Select(a => a.Id)
+                    .ToListAsync();
+
+                this.cache.Set("MyKey", data, DateTimeOffset.Now.AddDays(1));
+            }
+
+            return data;
+        }
 
         public async Task<IEnumerable<ArticleForUserListingServiceModel>> ByUser(string userId)
             => await this.db
