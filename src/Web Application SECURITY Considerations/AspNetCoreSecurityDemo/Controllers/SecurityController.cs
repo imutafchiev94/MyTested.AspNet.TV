@@ -9,6 +9,7 @@
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
 
     public class SecurityController : Controller
     {
@@ -42,10 +43,10 @@
                 connection.Open();
                 var command = new SqlCommand($"SELECT * FROM [DataValues] WHERE [Name] LIKE '%{searchText}%'", connection);
 
-                //// var command = new SqlCommand($"SELECT * FROM [DataValues] WHERE [Name] LIKE '%@textToSearch%'", connection);
-                //// command.Parameters.AddWithValue("@textToSearch", searchText);
-
-                //// this.dbContext.Database.ExecuteSqlCommand()
+                // var command = new SqlCommand($"SELECT * FROM [DataValues] WHERE [Name] LIKE '%@textToSearch%'", connection);
+                // command.Parameters.AddWithValue("@textToSearch", searchText);
+                   
+                // this.dbContext.Database.ExecuteSqlCommand()
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -70,14 +71,20 @@
 
         // Use BookFormModel instead of Book.
         [HttpPost]
-        public IActionResult ParameterTampering(Book model)
+        public IActionResult ParameterTampering(BookFormModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            this.dbContext.Add(model);
+            var book = new Book
+            {
+                Title = model.Title,
+                Description = model.Description
+            };
+
+            this.dbContext.Add(book);
 
             this.dbContext.SaveChanges();
 
@@ -120,7 +127,7 @@
         }
 
         [HttpPost]
-        //// [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         // https://docs.microsoft.com/en-us/aspnet/core/security/anti-request-forgery?view=aspnetcore-2.1
         public async Task<IActionResult> CreateDataValue(string name, string value)
         {
