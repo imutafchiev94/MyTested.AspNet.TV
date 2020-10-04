@@ -22,15 +22,10 @@ namespace MusicStore.Controllers
             _logger = logger;
         }
 
-        //
-        // GET: /Checkout/
         public IActionResult AddressAndPayment()
         {
             return View();
         }
-
-        //
-        // POST: /Checkout/AddressAndPayment
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -58,16 +53,13 @@ namespace MusicStore.Controllers
                     order.Username = HttpContext.User.Identity.Name;
                     order.OrderDate = DateTime.Now;
 
-                    //Add the Order
                     dbContext.Orders.Add(order);
 
-                    //Process the order
                     var cart = ShoppingCart.GetCart(dbContext, HttpContext);
                     await cart.CreateOrder(order);
 
                     _logger.LogInformation("User {userName} started checkout of {orderId}.", order.Username, order.OrderId);
 
-                    // Save all changes
                     await dbContext.SaveChangesAsync(requestAborted);
 
                     return RedirectToAction("Complete", new { id = order.OrderId });
@@ -75,13 +67,9 @@ namespace MusicStore.Controllers
             }
             catch
             {
-                //Invalid - redisplay with errors
                 return View(order);
             }
         }
-
-        //
-        // GET: /Checkout/Complete
 
         public async Task<IActionResult> Complete(
             [FromServices] MusicStoreContext dbContext,

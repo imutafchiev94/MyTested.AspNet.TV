@@ -6,61 +6,55 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MusicStore.Models;
 using MusicStore.ViewModels;
+using MusicStore.Services.Albums;
+using MusicStore.Services.ShoppingCart;
 
 namespace MusicStore.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        private readonly IAlbumService _albumService;
+        private readonly IShoppingCartService _shoppingCartService;
+        private readonly MusicStoreContext _dbContext;
         private readonly ILogger<ShoppingCartController> _logger;
 
-        public ShoppingCartController(MusicStoreContext dbContext, ILogger<ShoppingCartController> logger)
+        public ShoppingCartController(
+            IAlbumService albumService,
+            IShoppingCartService shoppingCartService,
+            MusicStoreContext dbContext, 
+            ILogger<ShoppingCartController> logger)
         {
-            DbContext = dbContext;
+            _albumService = albumService;
+            _shoppingCartService = shoppingCartService;
+            _dbContext = dbContext;
             _logger = logger;
         }
 
-        public MusicStoreContext DbContext { get; }
-
-        //
-        // GET: /ShoppingCart/
         public async Task<IActionResult> Index()
         {
-            var cart = ShoppingCart.GetCart(DbContext, HttpContext);
-
-            // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
             {
-                CartItems = await cart.GetCartItems(),
-                CartTotal = await cart.GetTotal()
+                CartItems = await _shoppingCartService.GetCartItems(),
+                CartTotal = await _shoppingCartService.GetTotal()
             };
 
-            // Return the view
             return View(viewModel);
         }
 
-        //
-        // GET: /ShoppingCart/AddToCart/5
-
-        public async Task<IActionResult> AddToCart(int id, CancellationToken requestAborted)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            // Retrieve the album from the database
-            var addedAlbum = await DbContext.Albums
-                .SingleAsync(album => album.AlbumId == id);
+            var albumExists = await _albumService.Exists(id);
 
-            // Add it to the shopping cart
-            var cart = ShoppingCart.GetCart(DbContext, HttpContext);
+            if (!albumExists)
+            {
+                return NotFound();
+            }
 
-            await cart.AddToCart(addedAlbum);
+            await _shoppingCartService.AddToCart(id);
 
-            await DbContext.SaveChangesAsync(requestAborted);
-            _logger.LogInformation("Album {albumId} was added to the cart.", addedAlbum.AlbumId);
-
-            // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
 
-        //
-        // AJAX: /ShoppingCart/RemoveFromCart/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveFromCart(
@@ -68,10 +62,10 @@ namespace MusicStore.Controllers
             CancellationToken requestAborted)
         {
             // Retrieve the current user's shopping cart
-            var cart = ShoppingCart.GetCart(DbContext, HttpContext);
+            var cart = ShoppingCart.GetCart(this._dbContext, HttpContext);
 
             // Get the name of the album to display confirmation
-            var cartItem = await DbContext.CartItems
+            var cartItem = await this._dbContext.CartItems
                 .Where(item => item.CartItemId == id)
                 .Include(c => c.Album)
                 .SingleOrDefaultAsync();
@@ -83,7 +77,7 @@ namespace MusicStore.Controllers
                 // Remove from cart
                 itemCount = cart.RemoveFromCart(id);
 
-                await DbContext.SaveChangesAsync(requestAborted);
+                await this._dbContext.SaveChangesAsync(requestAborted);
 
                 string removed = (itemCount > 0) ? " 1 copy of " : string.Empty;
                 message = removed + cartItem.Album.Title + " has been removed from your shopping cart.";

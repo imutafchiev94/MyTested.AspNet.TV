@@ -6,81 +6,70 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using MusicStore.Models;
+using MusicStore.Infrastructure;
+using MusicStore.Services.Genres;
 
 namespace MusicStore.Controllers
 {
     public class StoreController : Controller
     {
+        private readonly IGenreService _genreService;
+        private readonly MusicStoreContext _dbContext;
         private readonly AppSettings _appSettings;
 
-        public StoreController(MusicStoreContext dbContext, IOptions<AppSettings> options)
+        public StoreController(
+            IGenreService genreService,
+            MusicStoreContext dbContext, 
+            IOptions<AppSettings> options)
         {
-            DbContext = dbContext;
+            _genreService = genreService;
+            _dbContext = dbContext;
             _appSettings = options.Value;
         }
 
-        public MusicStoreContext DbContext { get; }
-
-        //
-        // GET: /Store/
         public async Task<IActionResult> Index()
         {
-            var genres = await DbContext.Genres.ToListAsync();
+            var genres = await _dbContext.Genres.ToListAsync();
 
             return View(genres);
         }
 
-        //
-        // GET: /Store/Browse?genre=Disco
         public async Task<IActionResult> Browse(string genre)
         {
-            // Retrieve Genre genre and its Associated associated Albums albums from database
-            var genreModel = await DbContext.Genres
-                .Include(g => g.Albums)
-                .Where(g => g.Name == genre)
-                .FirstOrDefaultAsync();
+            var genreModel = await _genreService.FindByName(genre, true);
 
-            if (genreModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(genreModel);
+            return this.ViewOrNotFound(genreModel);
         }
 
         public async Task<IActionResult> Details(
             [FromServices] IMemoryCache cache,
             int id)
         {
-            var cacheKey = string.Format("album_{0}", id);
-            Album album;
-            if (!cache.TryGetValue(cacheKey, out album))
+            var cacheKey = $"album_{id}";
+            if (!cache.TryGetValue(cacheKey, out Album album))
             {
-                album = await DbContext.Albums
-                                .Where(a => a.AlbumId == id)
-                                .Include(a => a.Artist)
-                                .Include(a => a.Genre)
-                                .FirstOrDefaultAsync();
+                album = await _dbContext.Albums
+                    .Where(a => a.AlbumId == id)
+                    .Include(a => a.Artist)
+                    .Include(a => a.Genre)
+                    .FirstOrDefaultAsync();
 
                 if (album != null)
                 {
                     if (_appSettings.CacheDbResults)
                     {
-                        //Remove it from cache if not retrieved in last 10 minutes
+                        var cacheOptions = new MemoryCacheEntryOptions()
+                            .SetSlidingExpiration(TimeSpan.FromMinutes(10));
+
                         cache.Set(
                             cacheKey,
                             album,
-                            new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(10)));
+                            cacheOptions);
                     }
                 }
             }
 
-            if (album == null)
-            {
-                return NotFound();
-            }
-
-            return View(album);
+            return this.ViewOrNotFound(album);
         }
     }
 }

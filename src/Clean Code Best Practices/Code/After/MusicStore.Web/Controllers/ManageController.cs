@@ -27,8 +27,6 @@ namespace MusicStore.Controllers
 
         public IAuthenticationSchemeProvider SchemeProvider { get; }
 
-        //
-        // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message = null)
         {
             ViewBag.StatusMessage =
@@ -53,8 +51,6 @@ namespace MusicStore.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveLogin(string loginProvider, string providerKey)
@@ -73,8 +69,6 @@ namespace MusicStore.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Account/AddPhoneNumber
         public IActionResult AddPhoneNumber()
         {
             return View();

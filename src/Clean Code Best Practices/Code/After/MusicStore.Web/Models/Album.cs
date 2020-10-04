@@ -29,7 +29,9 @@ namespace MusicStore.Models
         public string AlbumArtUrl { get; set; }
 
         public virtual Genre Genre { get; set; }
+
         public virtual Artist Artist { get; set; }
+
         public virtual List<OrderDetail> OrderDetails { get; set; }
 
         [ScaffoldColumn(false)]
@@ -38,7 +40,7 @@ namespace MusicStore.Models
         public DateTime Created { get; set; }
 
         /// <summary>
-        /// TODO: Temporary hack to populate the orderdetails until EF does this automatically. 
+        /// TODO: Temporary hack to populate the order details until EF does this automatically. 
         /// </summary>
         public Album()
         {

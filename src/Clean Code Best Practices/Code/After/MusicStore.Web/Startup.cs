@@ -1,17 +1,20 @@
-﻿namespace MusicStore
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using MusicStore.Components;
+using MusicStore.Models;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using MusicStore.Infrastructure;
+
+namespace MusicStore
 {
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Localization;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using MusicStore.Components;
-    using MusicStore.Models;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
+    using Infrastructure.Filters;
 
     public class Startup
     {
@@ -38,7 +41,6 @@
             services.AddDbContext<MusicStoreContext>(options =>
                 options.UseSqlServer(Configuration[StoreConfig.ConnectionStringKey.Replace("__", ":")]));
 
-            // Add Identity services to the services container
             services
                 .AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<MusicStoreContext>()
@@ -57,7 +59,11 @@
             services.AddLogging();
 
             // Add MVC services to the services container
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+                // options.Filters.Add<LogFilterAttribute>();
+            });
 
             // Add memory cache services
             services.AddMemoryCache();
@@ -68,6 +74,8 @@
 
             // Add the system clock service
             services.AddSingleton<ISystemClock, SystemClock>();
+
+            services.AddBusinessServices();
 
             // Configure Auth
             services.AddAuthorization(options =>
