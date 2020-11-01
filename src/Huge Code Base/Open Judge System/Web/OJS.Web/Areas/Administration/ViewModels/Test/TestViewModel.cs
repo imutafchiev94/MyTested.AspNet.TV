@@ -5,7 +5,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq.Expressions;
     using System.Web.Mvc;
-    using System.Web.Script.Serialization;
 
     using OJS.Common;
     using OJS.Common.DataAnnotations;
@@ -74,7 +73,6 @@
             AllowEmptyStrings = false,
             ErrorMessageResourceName = nameof(Resource.Input_required),
             ErrorMessageResourceType = typeof(Resource))]
-        [ScriptIgnore]
         [StringLength(
             int.MaxValue,
             MinimumLength = GlobalConstants.TestInputMinLength)]
@@ -127,7 +125,6 @@
             AllowEmptyStrings = false,
             ErrorMessageResourceName = nameof(Resource.Output_required),
             ErrorMessageResourceType = typeof(Resource))]
-        [ScriptIgnore]
         [StringLength(
             int.MaxValue,
             MinimumLength = GlobalConstants.TestOutputMinLength)]
